@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+  labels:
+    app: guess-game
+    component: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: guess-game
+      component: db
+  template:
+    metadata:
+      labels:
+        app: guess-game
+        component: db
+    spec:
+      containers:
+        - name: db
+          image: "{{ .Values.db.image.repository }}:{{ .Values.db.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.db.service.port }}
+          env:
+            - name: POSTGRES_USER
+              value: "{{ .Values.db.credentials.user }}"
+            - name: POSTGRES_PASSWORD
+              value: "{{ .Values.db.credentials.password }}"
+            - name: POSTGRES_DB
+              value: "{{ .Values.db.credentials.database }}"

@@ -1,0 +1,39 @@
+# Git
+.git
+.gitignore
+
+# Python e Flask
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Ambientes Virtuais
+venv/
+.venv/
+
+# Variáveis de ambiente locais
+.env
+.env.*
+
+# Banco de dados local (Se você usar SQLite para testes)
+*.sqlite3
+*.db
+
+# Logs
+*.log
+
+# Arquivos de IDE e SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Arquivos do próprio Docker (mantém a imagem limpa)
+Dockerfile
+docker-compose.yaml
+docker-compose.yml
+.dockerignore

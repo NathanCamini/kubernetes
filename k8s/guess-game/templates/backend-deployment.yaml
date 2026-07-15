@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app: guess-game
+    component: backend
+spec:
+  replicas: {{ .Values.backend.replicaCount }}
+  selector:
+    matchLabels:
+      app: guess-game
+      component: backend
+  template:
+    metadata:
+      labels:
+        app: guess-game
+        component: backend
+    spec:
+      containers:
+        - name: backend
+          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.backend.service.port }}
+          env:
+            - name: FLASK_APP
+              value: "run.py"
+            - name: FLASK_DB_TYPE
+              value: "postgres"
+            - name: FLASK_DB_USER
+              value: "{{ .Values.db.credentials.user }}"
+            - name: FLASK_DB_PASSWORD
+              value: "{{ .Values.db.credentials.password }}"
+            - name: FLASK_DB_NAME
+              value: "{{ .Values.db.credentials.database }}"
+            - name: FLASK_DB_HOST
+              value: "db"
+            - name: FLASK_DB_PORT
+              value: "{{ .Values.db.service.port }}"
+          resources:
+{{ toYaml .Values.backend.resources | indent 12 }}
