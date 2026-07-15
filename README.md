@@ -28,16 +28,16 @@ Verifique se possui o docker instalado e rodando:
 Para que o Ingress funcione e exponha a porta 80 do cluster para a porta 8080 do `localhost`, crie o cluster com o comando abaixo:
 
 ```bash
-k3d cluster create guess-game-cluster -p "8080:80@loadbalancer" --api-port 127.0.0.1:53504
-kubectl config set-cluster k3d-guess-game-cluster --server=https://localhost:53504
+k3d cluster create guess-game-cluster -p "8080:80@loadbalancer" --api-port 7777
+kubectl config set-cluster k3d-guess-game-cluster --server=https://localhost:7777
 ```
 
 ### 3. Deploy da Aplicação com Helm
 
-Com o cluster em pé, instale o Helm Chart (certifique-se de estar na raiz do repositório):
+Com o cluster em pé, instale o Helm Chart:
 
 ```bash
-helm install meu-jogo ./k8s/guess-game
+helm install guess-game ./k8s/guess-game
 ```
 
 As imagens do frontend e backend estão configuradas no `values.yaml` para usar as tags `demo-game-frontend:v1.0.0` e `demo-game-backend:v1.0.0` diretamente do meu docker Hub (nathancamini).
